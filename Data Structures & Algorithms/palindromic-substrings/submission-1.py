@@ -1,0 +1,14 @@
+class Solution:
+    def countSubstrings(self, s: str) -> int:
+        res = 0
+        n = len(s)
+        dp = [[False] * n for _ in range(n)]
+        for i in range(n-1, -1, -1):
+            for j in range(i,n):
+                if s[i] == s[j] and (j - i + 1 <= 2 or dp[i+1][j-1] > 0):
+                    if j - i + 1 <= 2:
+                        dp[i][j] = j - i + 1
+                    else:
+                        dp[i][j] = dp[i+1][j-1] + 1
+                    res += 1
+        return res
